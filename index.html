@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDA IT Game Schedule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .search-box {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="date"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>SDA IT Game Schedule</h1>
+    <div class="container">
+        <!-- Search by Event Type -->
+        <div class="search-box">
+            <label for="eventType">Search by Event Type:</label>
+            <input type="text" id="eventType" placeholder="Enter event type">
+        </div>
+        
+        <!-- Search by Event Date -->
+        <div class="search-box">
+            <label for="eventDate">Search by Event Date:</label>
+            <input type="date" id="eventDate">
+        </div>
+
+        <!-- Search by Staff Name -->
+        <div class="search-box">
+            <label for="staffName">Search by Staff Name:</label>
+            <input type="text" id="staffName" placeholder="Enter staff name">
+        </div>
+
+        <!-- Search Button -->
+        <button onclick="searchEvent()">Search</button>
+
+        <!-- Results will be displayed here -->
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        // Load CSV data
+        let eventData = [];
+
+        // Fetch CSV data and parse it
+        fetch('events.csv')
+            .then(response => response.text())
+            .then(data => {
+                // Parse CSV data
+                eventData = csvToArray(data);
+            })
+            .catch(error => {
+                console.error('Error loading CSV file:', error);
+            });
+
+        // Convert CSV string to array of objects
+        function csvToArray(str, delimiter = ',') {
+            const headers = str.slice(0, str.indexOf('\n')).split(delimiter);
+            const rows = str.slice(str.indexOf('\n') + 1).split('\n');
+
+            return rows.map(row => {
+                const values = row.split(delimiter);
+                return headers.reduce((obj, header, index) => {
+                    obj[header.trim()] = values[index]?.trim();
+                    return obj;
+                }, {});
+            });
+        }
+
+        // Search for events based on type, date, or staff name
+        function searchEvent() {
+            const eventTypeInput = document.getElementById('eventType').value.toLowerCase();
+            const eventDateInput = document.getElementById('eventDate').value;
+            const staffNameInput = document.getElementById('staffName').value.toLowerCase();
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // Clear previous results
+
+            // Filter events based on user input (event type, date, or staff name)
+            const filteredEvents = eventData.filter(event => {
+                return (eventTypeInput && event['Event Type'].toLowerCase().includes(eventTypeInput)) ||
+                       (eventDateInput && event['Event Date'] === eventDateInput) ||
+                       (staffNameInput && event['Staff Name'].toLowerCase().includes(staffNameInput));
+            });
+
+            // Display results
+            if (filteredEvents.length > 0) {
+                filteredEvents.forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.innerHTML = `<strong>Event Type:</strong> ${event['Event Type']} <br>
+                                          <strong>Date:</strong> ${event['Event Date']} <br>
+                                          <strong>Info:</strong> ${event['Info']} <br>
+                                          <strong>Staff:</strong> ${event['Staff Name']} <hr>`;
+                    resultsDiv.appendChild(eventDiv);
+                });
+            } else {
+                resultsDiv.innerHTML = '<p>No events found for your search criteria.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
