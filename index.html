@@ -166,13 +166,67 @@
     <!-- Logo and Search Form -->
     <h1>SDA IT Game Schedule</h1>
     <div class="container">
-        <!-- Search form -->
-        <!-- Your existing search form code here -->
+        <!-- Search by Event Type -->
+        <div class="search-box">
+            <label for="eventType">Search by Event Type:</label>
+            <input type="text" id="eventType" placeholder="Enter event type">
+        </div>
+        
+        <!-- Search by Event Date -->
+        <div class="search-box">
+            <label for="eventDate">Search by Event Date:</label>
+            <input type="date" id="eventDate">
+        </div>
+
+        <!-- Search by Staff Name (Dropdown) -->
+        <div class="search-box">
+            <label for="staffDropdown">Search by Staff Name:</label>
+            <select id="staffDropdown">
+                <option value="">Select a staff member</option>
+                <option value="Jolan Glover">Jolan Glover</option>
+                <option value="Autumn Pickart">Autumn Pickart</option>
+                <option value="Kevin Chan">Kevin Chan</option>
+                <option value="Hridi Ukani">Hridi Ukani</option>
+                <option value="Kathan Parag Shah">Kathan Parag Shah</option>
+                <option value="Ashfaq Shams">Ashfaq Shams</option>
+                <option value="Mehrab Hossain">Mehrab Hossain</option>
+                <option value="Ryan Booker">Ryan Booker</option>
+            </select>
+        </div>
+
+        <!-- Search Button -->
+        <button onclick="searchEvent()">Search</button>
+
+        <!-- Results will be displayed here -->
+        <div class="results" id="results"></div>
     </div>
 
     <!-- Game Schedule -->
     <div class="schedule-container" id="scheduleContainer">
-        <!-- Existing game schedule code goes here -->
+        <!-- Example Event 1 -->
+        <div class="schedule-item">
+            <div class="schedule-header">
+                <div class="date">
+                    <p>Sep.</p>
+                    <p>12</p>
+                </div>
+                <div class="details">
+                    <p class="event-name">Sun Devil Volleyball: Arizona State at Wichita State</p>
+                    <p>4:00 p.m. | Bob Devaney Sports Center</p>
+                </div>
+                <div class="info-btn">
+                    <button onclick="toggleInfo(this)">Match info</button>
+                </div>
+            </div>
+            <!-- Hidden match info -->
+            <div class="match-info">
+                <p><strong>Staff Reporting Time:</strong> 2:00 p.m.</p>
+                <p><strong>Student Worker Reporting Time:</strong> 2:30 p.m.</p>
+                <p><strong>Kick-Off Time:</strong> 4:00 p.m.</p>
+            </div>
+        </div>
+
+        <!-- You can copy and modify the structure above for more games -->
     </div>
 
     <!-- Account Modal -->
