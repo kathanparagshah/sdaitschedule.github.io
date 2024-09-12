@@ -83,6 +83,7 @@
             border-radius: 5px;
             margin-bottom: 15px;
             background-color: #fff;
+            position: relative;
         }
 
         .schedule-header {
@@ -116,6 +117,18 @@
             background-color: #f0f0f0;
             padding: 10px;
             border-radius: 4px;
+        }
+
+        /* ALERT styling */
+        .alert {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+            border-radius: 3px;
         }
 
         /* Modal Styles */
@@ -226,7 +239,29 @@
             </div>
         </div>
 
-        <!-- You can copy and modify the structure above for more games -->
+        <!-- ALERT Event (no assignment) -->
+        <div class="schedule-item">
+            <div class="alert">ALERT!!!</div>
+            <div class="schedule-header">
+                <div class="date">
+                    <p>Sep.</p>
+                    <p>12</p>
+                </div>
+                <div class="details">
+                    <p class="event-name">Unassigned Event</p>
+                    <p>Time: N/A | Location: N/A</p>
+                </div>
+                <div class="info-btn">
+                    <button onclick="toggleInfo(this)">Match info</button>
+                </div>
+            </div>
+            <!-- Hidden match info -->
+            <div class="match-info">
+                <p><strong>Staff Reporting Time:</strong> N/A</p>
+                <p><strong>Student Worker Reporting Time:</strong> N/A</p>
+                <p><strong>Kick-Off Time:</strong> N/A</p>
+            </div>
+        </div>
     </div>
 
     <!-- Account Modal -->
