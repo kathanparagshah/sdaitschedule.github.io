@@ -10,10 +10,28 @@
             margin: 0;
             padding: 20px;
             background-color: #f4f4f4;
+            position: relative;
         }
+
         h1 {
             text-align: center;
         }
+
+        /* Header icons */
+        .header-icons {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .header-icons img {
+            width: 30px;
+            height: 30px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        /* Container for search */
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -21,16 +39,11 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .logo {
-            display: block;
-            margin: 0 auto;
-            width: 150px;
-            height: auto;
-            margin-bottom: 20px;
-        }
+
         .search-box {
             margin-bottom: 20px;
         }
+
         input[type="text"], input[type="date"], select {
             width: calc(100% - 20px);
             padding: 10px;
@@ -38,6 +51,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         button {
             width: 100%;
             padding: 10px;
@@ -47,11 +61,12 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #218838;
         }
 
-        /* Styles for the game boxes */
+        /* Game Schedule */
         .schedule-container {
             max-width: 800px;
             margin: 20px auto;
@@ -70,10 +85,6 @@
             background-color: #fff;
         }
 
-        .schedule-item:hover {
-            background-color: #f9f9f9;
-        }
-
         .schedule-header {
             display: flex;
             justify-content: space-between;
@@ -83,33 +94,6 @@
 
         .date, .details, .info-btn {
             flex: 1;
-        }
-
-        .date {
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .details {
-            margin-left: 20px;
-            flex: 2;
-        }
-
-        .details p {
-            margin: 0;
-            color: #555;
-        }
-
-        .details .event-name {
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #000;
-        }
-
-        .info-btn {
-            text-align: right;
         }
 
         .info-btn button {
@@ -134,89 +118,138 @@
             border-radius: 4px;
         }
 
-        .match-info p {
-            margin: 5px 0;
-            color: #333;
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+        }
+
+        .modal-content input, .modal-content button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <!-- Logo and Search Form -->
-    <img src="image.png" alt="Logo" class="logo">
-    <h1>SDA IT Game Schedule</h1>
-    <div class="container">
-        <!-- Search by Event Type -->
-        <div class="search-box">
-            <label for="eventType">Search by Event Type:</label>
-            <input type="text" id="eventType" placeholder="Enter event type">
-        </div>
-        
-        <!-- Search by Event Date -->
-        <div class="search-box">
-            <label for="eventDate">Search by Event Date:</label>
-            <input type="date" id="eventDate">
-        </div>
-
-        <!-- Search by Staff Name (Dropdown) -->
-        <div class="search-box">
-            <label for="staffDropdown">Search by Staff Name:</label>
-            <select id="staffDropdown">
-                <option value="">Select a staff member</option>
-                <option value="Jolan Glover">Jolan Glover</option>
-                <option value="Autumn Pickart">Autumn Pickart</option>
-                <option value="Kevin Chan">Kevin Chan</option>
-                <option value="Hridi Ukani">Hridi Ukani</option>
-                <option value="Kathan Parag Shah">Kathan Parag Shah</option>
-                <option value="Ashfaq Shams">Ashfaq Shams</option>
-                <option value="Mehrab Hossain">Mehrab Hossain</option>
-                <option value="Ryan Booker">Ryan Booker</option>
-            </select>
-        </div>
-
-        <!-- Search Button -->
-        <button onclick="searchEvent()">Search</button>
-
-        <!-- Results will be displayed here -->
-        <div class="results" id="results"></div>
+    <!-- Header icons (Account and + Add Event) -->
+    <div class="header-icons">
+        <img src="account-icon.png" alt="Account" onclick="showModal('accountModal')">
+        <img src="plus-icon.png" alt="Add Event" onclick="showModal('addEventModal')">
     </div>
 
-    <!-- Game Schedule Boxes -->
-    <div class="schedule-container">
-        <!-- Game 1 -->
-        <div class="schedule-item">
-            <div class="schedule-header">
-                <div class="date">
-                    <p>Sep.</p>
-                    <p>12</p>
-                </div>
-                <div class="details">
-                    <p class="event-name">Sun Devil Volleyball: Arizona State at Wichita State</p>
-                    <p>4:00 p.m. | Bob Devaney Sports Center</p>
-                </div>
-                <div class="info-btn">
-                    <button onclick="toggleInfo(this)">Match info</button>
-                </div>
-            </div>
-            <!-- Hidden match info -->
-            <div class="match-info">
-                <p><strong>Staff Reporting Time:</strong> 2:00 p.m.</p>
-                <p><strong>Student Worker Reporting Time:</strong> 2:30 p.m.</p>
-                <p><strong>Kick-Off Time:</strong> 4:00 p.m.</p>
-            </div>
-        </div>
+    <!-- Logo and Search Form -->
+    <h1>SDA IT Game Schedule</h1>
+    <div class="container">
+        <!-- Search form -->
+        <!-- Your existing search form code here -->
+    </div>
 
-        <!-- Additional game boxes follow the same structure -->
+    <!-- Game Schedule -->
+    <div class="schedule-container" id="scheduleContainer">
+        <!-- Existing game schedule code goes here -->
+    </div>
+
+    <!-- Account Modal -->
+    <div id="accountModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModal('accountModal')">&times;</span>
+            <h2>Your Profile</h2>
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Email:</strong> john.doe@example.com</p>
+            <p><strong>Phone:</strong> (123) 456-7890</p>
+        </div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div id="addEventModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModal('addEventModal')">&times;</span>
+            <h2>Add New Event</h2>
+            <input type="text" id="eventName" placeholder="Event Name">
+            <input type="date" id="eventDate" placeholder="Event Date">
+            <input type="text" id="assignedBy" placeholder="Assigned By">
+            <input type="time" id="reportingTime" placeholder="Reporting Time">
+            <button onclick="addEvent()">Add Event</button>
+        </div>
     </div>
 
     <script>
+        // Show Modal
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        // Hide Modal
+        function hideModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Add new event to the schedule
+        function addEvent() {
+            const eventName = document.getElementById('eventName').value;
+            const eventDate = document.getElementById('eventDate').value;
+            const assignedBy = document.getElementById('assignedBy').value;
+            const reportingTime = document.getElementById('reportingTime').value;
+
+            // Create new game schedule item
+            const scheduleContainer = document.getElementById('scheduleContainer');
+            const newEventItem = document.createElement('div');
+            newEventItem.classList.add('schedule-item');
+
+            newEventItem.innerHTML = `
+                <div class="schedule-header">
+                    <div class="date">
+                        <p>${new Date(eventDate).toLocaleDateString('en-US', { month: 'short' })}</p>
+                        <p>${new Date(eventDate).getDate()}</p>
+                    </div>
+                    <div class="details">
+                        <p class="event-name">${eventName}</p>
+                        <p>Reporting Time: ${reportingTime}</p>
+                        <p>Assigned By: ${assignedBy}</p>
+                    </div>
+                    <div class="info-btn">
+                        <button onclick="toggleInfo(this)">Match info</button>
+                    </div>
+                </div>
+                <div class="match-info">
+                    <p><strong>Staff Reporting Time:</strong> ${reportingTime}</p>
+                </div>
+            `;
+
+            scheduleContainer.appendChild(newEventItem);
+            hideModal('addEventModal');
+        }
+
         // Function to toggle the visibility of match info
         function toggleInfo(button) {
             const matchInfo = button.closest('.schedule-item').querySelector('.match-info');
-            if (matchInfo.style.display === 'none' || matchInfo.style.display === '') {
-                matchInfo.style.display = 'block';
-            } else {
-                matchInfo.style.display = 'none';
-            }
+            matchInfo.style.display = matchInfo.style.display === 'none' || matchInfo.style.display === '' ? 'block' : 'none';
         }
     </script>
 </body>
