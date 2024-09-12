@@ -93,7 +93,7 @@
             // Store the logged-in user's name in localStorage (for session purposes)
             localStorage.setItem('loggedInUser', user.name);
             // Redirect to the main page (game schedule)
-            window.location.href = 'main.html';
+            window.location.href = 'main.html';  // <-- This is where you redirect after successful login
         } else {
             // Display error message
             errorDiv.textContent = 'Invalid username or password';
