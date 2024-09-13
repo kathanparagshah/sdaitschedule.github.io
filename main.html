@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Header */
@@ -35,6 +36,14 @@
             width: 30px;
             height: 30px;
             margin-left: 15px;
+            cursor: pointer;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            left: 20px;
+            top: 30px;
             cursor: pointer;
         }
 
@@ -249,9 +258,34 @@
             font-size: 14px;
             margin-top: 30px;
         }
+
+        /* Dark mode styling */
+        body.dark-mode {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        .dark-mode .container,
+        .dark-mode .schedule-item {
+            background-color: #444;
+            color: #f4f4f4;
+        }
+
+        .dark-mode button {
+            background-color: #FFC627;
+            color: #8C1D40;
+        }
+
+        .dark-mode .info-btn button {
+            background-color: #FFC627;
+            color: #8C1D40;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" onclick="toggleTheme()">🌓</div>
 
     <!-- Header icons (Shifted to the right) -->
     <div class="header-icons">
@@ -267,19 +301,19 @@
         <!-- Search by Event Type -->
         <div class="search-box">
             <label for="eventType">Search by Event Type:</label>
-            <input type="text" id="eventType" placeholder="Enter event type">
+            <input type="text" id="eventType" placeholder="Enter event type" onkeyup="filterEvents()">
         </div>
         
         <!-- Search by Event Date -->
         <div class="search-box">
             <label for="eventDate">Search by Event Date:</label>
-            <input type="date" id="eventDate">
+            <input type="date" id="eventDate" onchange="filterEvents()">
         </div>
 
         <!-- Search by Staff Name (Dropdown) -->
         <div class="search-box">
             <label for="staffDropdown">Search by Staff Name:</label>
-            <select id="staffDropdown">
+            <select id="staffDropdown" onchange="filterEvents()">
                 <option value="">Select a staff member</option>
                 <option value="Jolan Glover">Jolan Glover</option>
                 <option value="Autumn Pickart">Autumn Pickart</option>
@@ -293,13 +327,13 @@
         </div>
 
         <!-- Search Button -->
-        <button onclick="searchEvent()">Search</button>
+        <button onclick="filterEvents()">Search</button>
     </div>
 
     <!-- Game Schedule Container -->
     <div class="schedule-container" id="scheduleContainer">
         <!-- Example Event -->
-        <div class="schedule-item">
+        <div class="schedule-item" data-event-type="Volleyball" data-event-date="2024-09-12" data-staff-name="Kevin Chan">
             <div class="schedule-header">
                 <div class="date">
                     <p>Sep.</p>
@@ -340,7 +374,7 @@
             <span class="close" onclick="hideModal('addEventModal')">&times;</span>
             <h2>Add New Event</h2>
             <input type="text" id="eventName" placeholder="Event Name" />
-            <input type="date" id="eventDate" placeholder="Event Date" />
+            <input type="date" id="eventDateInput" placeholder="Event Date" />
             <input type="text" id="assignedBy" placeholder="Assigned By" />
             <input type="time" id="reportingTime" placeholder="Reporting Time" />
             <button onclick="addEvent()">Add Event</button>
@@ -353,6 +387,20 @@
     </div>
 
     <script>
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        // Load stored theme
+        window.onload = function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        };
+
         // Show Modal
         function showModal(modalId) {
             document.getElementById(modalId).style.display = 'flex';
@@ -366,7 +414,7 @@
         // Add new event to the schedule
         function addEvent() {
             const eventName = document.getElementById('eventName').value;
-            const eventDate = document.getElementById('eventDate').value;
+            const eventDate = document.getElementById('eventDateInput').value;
             const assignedBy = document.getElementById('assignedBy').value;
             const reportingTime = document.getElementById('reportingTime').value;
 
@@ -374,6 +422,9 @@
             const scheduleContainer = document.getElementById('scheduleContainer');
             const newEventItem = document.createElement('div');
             newEventItem.classList.add('schedule-item');
+            newEventItem.setAttribute('data-event-type', eventName.split(':')[0].trim());
+            newEventItem.setAttribute('data-event-date', eventDate);
+            newEventItem.setAttribute('data-staff-name', assignedBy);
 
             newEventItem.innerHTML = `
                 <div class="schedule-header">
@@ -397,6 +448,26 @@
 
             scheduleContainer.appendChild(newEventItem);
             hideModal('addEventModal');
+        }
+
+        // Filter events by search criteria
+        function filterEvents() {
+            const eventType = document.getElementById('eventType').value.toLowerCase();
+            const eventDate = document.getElementById('eventDate').value;
+            const staffName = document.getElementById('staffDropdown').value;
+
+            const events = document.querySelectorAll('.schedule-item');
+            events.forEach(event => {
+                const eventMatchesType = eventType === '' || event.getAttribute('data-event-type').toLowerCase().includes(eventType);
+                const eventMatchesDate = eventDate === '' || event.getAttribute('data-event-date') === eventDate;
+                const eventMatchesStaff = staffName === '' || event.getAttribute('data-staff-name') === staffName;
+
+                if (eventMatchesType && eventMatchesDate && eventMatchesStaff) {
+                    event.style.display = 'flex';
+                } else {
+                    event.style.display = 'none';
+                }
+            });
         }
 
         // Function to toggle the visibility of match info
