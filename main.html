@@ -6,43 +6,38 @@
     <title>SDA IT Game Schedule</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             background-color: #f4f4f4;
+            position: relative;
         }
 
         h1 {
             text-align: center;
-            background-color: #8C1D40; /* ASU Maroon */
-            color: white;
-            padding: 20px;
-            margin: 0;
-            font-size: 28px;
         }
 
-        /* Header icons */
+        /* Shift header icons to the right */
         .header-icons {
             position: absolute;
-            right: 20px;
-            top: 30px;
+            right: 20px; /* Align to the right */
+            top: 20px;
         }
 
         .header-icons img {
-            width: 25px;
-            height: 25px;
+            width: 30px;
+            height: 30px;
             margin-left: 15px;
             cursor: pointer;
         }
 
         /* Container for search */
         .container {
-            max-width: 700px;
-            margin: 30px auto;
+            max-width: 600px;
+            margin: 0 auto;
             background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .search-box {
@@ -51,42 +46,41 @@
         }
 
         label {
-            font-size: 14px; 
+            font-size: 12px; /* Smaller font size for labels */
+            display: block;
             margin-bottom: 5px;
-            text-align: left;
-            color: #333;
+            text-align: left; /* Ensure labels are aligned to the top left */
         }
 
+        /* Input fields and select box */
         input[type="text"],
         input[type="date"],
         select {
-            width: 100%;
-            max-width: 600px;
-            padding: 12px;
-            margin-bottom: 15px;
+            width: 100%; /* Full width relative to container */
+            max-width: 550px; /* Set maximum width */
+            padding: 8px; /* Reduced padding for a cleaner look */
+            margin-bottom: 10px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
+            border-radius: 4px;
+            font-size: 12px; /* Smaller font size for input fields */
             box-sizing: border-box;
             display: block;
         }
 
         button {
             width: 100%;
-            max-width: 600px;
-            padding: 12px;
-            background-color: #8C1D40; /* ASU Maroon */
+            max-width: 550px; /* Match button width to input fields */
+            padding: 10px;
+            background-color: #c8102e; /* Maroon color */
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            font-size: 14px; /* Slightly smaller font for button */
         }
 
         button:hover {
-            background-color: #A23748;
+            background-color: #a00b24;
         }
 
         /* Game Schedule */
@@ -94,16 +88,14 @@
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .schedule-item {
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
-            padding: 15px;
+            align-items: flex-start;
+            padding: 15px 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-bottom: 15px;
@@ -113,17 +105,13 @@
 
         .schedule-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            width: 100%;
         }
 
-        .date {
-            background-color: #FFC627; /* ASU Gold */
-            color: #8C1D40; /* ASU Maroon */
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-right: 15px;
-            text-align: center;
+        .date, .details, .info-btn {
+            flex: 1;
         }
 
         .info-btn button {
@@ -131,7 +119,7 @@
             color: white;
             border: none;
             padding: 10px 15px;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
         }
 
@@ -148,27 +136,38 @@
             border-radius: 4px;
         }
 
+        /* ALERT styling */
+        .alert {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
-            z-index: 10;
+            z-index: 1;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Dark background */
+            background-color: rgba(0, 0, 0, 0.4);
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
             background-color: #fff;
-            padding: 30px;
+            padding: 20px;
             border-radius: 8px;
-            width: 500px;
+            width: 400px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            position: relative;
         }
 
         .modal-content h2 {
@@ -177,38 +176,37 @@
             font-size: 24px;
         }
 
-        .modal-content input,
+        .modal-content input, 
         .modal-content button {
             width: 100%;
             padding: 12px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Prevents overflow */
         }
 
         .modal-content input:focus {
             outline: none;
-            border-color: #8C1D40;
+            border-color: #c8102e; /* Maroon color for input focus */
         }
 
         .modal-content button {
-            background-color: #8C1D40;
+            background-color: #c8102e; /* Maroon color */
             color: white;
             border: none;
             cursor: pointer;
+            font-size: 14px;
         }
 
         .modal-content button:hover {
-            background-color: #A23748;
+            background-color: #a00b24; /* Darker maroon */
         }
 
         .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
             color: #aaa;
-            font-size: 20px;
+            float: right;
+            font-size: 24px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -216,16 +214,15 @@
         .close:hover,
         .close:focus {
             color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            background-color: #8C1D40;
-            color: white;
-            font-size: 14px;
+        .modal-content input[type="date"],
+        .modal-content input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -236,10 +233,8 @@
         <img src="plus-icon.png" alt="Add Event" onclick="showModal('addEventModal')">
     </div>
 
-    <!-- Header -->
+    <!-- Logo and Search Form -->
     <h1>SDA IT Game Schedule</h1>
-
-    <!-- Search Form Container -->
     <div class="container">
         <!-- Search by Event Type -->
         <div class="search-box">
@@ -273,9 +268,9 @@
         <button onclick="searchEvent()">Search</button>
     </div>
 
-    <!-- Game Schedule Container -->
+    <!-- Game Schedule -->
     <div class="schedule-container" id="scheduleContainer">
-        <!-- Example Event -->
+        <!-- Example Event 1 -->
         <div class="schedule-item">
             <div class="schedule-header">
                 <div class="date">
@@ -286,17 +281,16 @@
                     <p class="event-name">Sun Devil Volleyball: Arizona State at Wichita State</p>
                     <p>4:00 p.m. | Bob Devaney Sports Center</p>
                 </div>
+                <div class="info-btn">
+                    <button onclick="toggleInfo(this)">Match info</button>
+                </div>
             </div>
-            <div class="info-btn">
-                <button onclick="toggleInfo(this)">Match info</button>
+            <!-- Hidden match info -->
+            <div class="match-info">
+                <p><strong>Staff Reporting Time:</strong> 2:00 p.m.</p>
+                <p><strong>Student Worker Reporting Time:</strong> 2:30 p.m.</p>
+                <p><strong>Kick-Off Time:</strong> 4:00 p.m.</p>
             </div>
-        </div>
-
-        <!-- Hidden match info -->
-        <div class="match-info">
-            <p><strong>Staff Reporting Time:</strong> 2:00 p.m.</p>
-            <p><strong>Student Worker Reporting Time:</strong> 2:30 p.m.</p>
-            <p><strong>Kick-Off Time:</strong> 4:00 p.m.</p>
         </div>
     </div>
 
@@ -322,11 +316,6 @@
             <input type="time" id="reportingTime" placeholder="Reporting Time" />
             <button onclick="addEvent()">Add Event</button>
         </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        &copy; 2024 Arizona State University. All rights reserved.
     </div>
 
     <script>
