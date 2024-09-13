@@ -38,27 +38,33 @@
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Ensure centering of the contents */
         }
 
         .search-box {
             margin-bottom: 20px;
         }
 
-        /* Ensuring all input, select, and date fields have the same size */
+        /* Ensuring all input, select, and date fields have the same size and are centered */
         input[type="text"],
         input[type="date"],
         select {
-            width: calc(100% - 20px); /* Ensures all fields are the same width */
-            padding: 12px; /* Uniform padding */
+            width: 100%; /* Make all fields full width relative to container */
+            max-width: 550px; /* Set a maximum width for fields */
+            padding: 10px; /* Adjusted padding for reduced font size */
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            font-size: 16px; /* Ensure text inside inputs is consistent */
-            box-sizing: border-box; /* Prevents overflow */
+            font-size: 14px; /* Reduced font size to what it was before */
+            box-sizing: border-box; /* Ensure padding is included in width */
+            display: block;
+            margin-left: auto; /* Center the input fields */
+            margin-right: auto; /* Center the input fields */
         }
 
         button {
             width: 100%;
+            max-width: 550px; /* Match button width to input fields */
             padding: 12px;
             background-color: #c8102e; /* Maroon color */
             color: white;
@@ -66,6 +72,9 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            display: block;
+            margin-left: auto; /* Center the button */
+            margin-right: auto; /* Center the button */
         }
 
         button:hover {
