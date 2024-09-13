@@ -17,25 +17,18 @@
             text-align: center;
         }
 
-        /* Header icons */
+        /* Shift header icons to the right */
         .header-icons {
             position: absolute;
-            right: 20px; /* Position on the right-hand side */
+            right: 20px; /* Align to the right */
             top: 20px;
-            display: flex;
-            gap: 10px; /* Adds space between the icons */
-            align-items: center;
         }
 
         .header-icons img {
             width: 30px;
             height: 30px;
+            margin-left: 15px;
             cursor: pointer;
-        }
-
-        .header-icons span {
-            font-size: 14px;
-            margin-left: 5px;
         }
 
         /* Container for search */
@@ -234,12 +227,10 @@
     </style>
 </head>
 <body>
-    <!-- Header icons (Account and + Add Event) -->
+    <!-- Header icons (Shifted to the right) -->
     <div class="header-icons">
         <img src="account-icon.png" alt="Account" onclick="showModal('accountModal')">
-        <span>Account</span>
         <img src="plus-icon.png" alt="Add Event" onclick="showModal('addEventModal')">
-        <span>Add Event</span>
     </div>
 
     <!-- Logo and Search Form -->
