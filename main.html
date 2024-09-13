@@ -44,17 +44,22 @@
             margin-bottom: 20px;
         }
 
-        input[type="text"], input[type="date"], select {
-            width: calc(100% - 20px);
-            padding: 10px;
+        /* Ensuring all input, select, and date fields have the same size */
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: calc(100% - 20px); /* Ensures all fields are the same width */
+            padding: 12px; /* Uniform padding */
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 16px; /* Ensure text inside inputs is consistent */
+            box-sizing: border-box; /* Prevents overflow */
         }
 
         button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #c8102e; /* Maroon color */
             color: white;
             border: none;
@@ -167,7 +172,7 @@
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Prevents overflow */
         }
 
         .modal-content input:focus {
@@ -250,9 +255,6 @@
 
         <!-- Search Button -->
         <button onclick="searchEvent()">Search</button>
-
-        <!-- Results will be displayed here -->
-        <div class="results" id="results"></div>
     </div>
 
     <!-- Game Schedule -->
