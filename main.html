@@ -224,7 +224,7 @@
     <!-- Scrollable Game Schedule Container -->
     <div class="schedule-container-wrapper">
         <div class="schedule-container" id="scheduleContainer">
-            <!-- All matches will go here as previously coded -->
+            <!-- Game entries for each date -->
             <div class="schedule-item" data-event-type="Football" data-event-date="2024-08-31" data-staff-name="">
                 <div class="schedule-header">
                     <div class="date">
@@ -244,7 +244,6 @@
                 </div>
             </div>
 
-            <!-- More game entries here -->
             <div class="schedule-item" data-event-type="Football" data-event-date="2024-09-07" data-staff-name="">
                 <div class="schedule-header">
                     <div class="date">
@@ -263,28 +262,30 @@
                     <p><strong>Result:</strong> W, 35-28</p>
                 </div>
             </div>
-            
-            <!-- Add all other games up to Nov 30 -->
-            <div class="schedule-item" data-event-type="Football" data-event-date="2024-11-30" data-staff-name="">
+
+            <div class="schedule-item" data-event-type="Football" data-event-date="2024-09-12" data-staff-name="">
                 <div class="schedule-header">
                     <div class="date">
-                        <p>Nov.</p>
-                        <p>30</p>
+                        <p>Sep.</p>
+                        <p>12</p>
                     </div>
                     <div class="details">
-                        <p class="event-name">Football: Arizona State vs Rival</p>
-                        <p>7:00 p.m. | Mountain America Stadium, Tempe, AZ</p>
+                        <p class="event-name">Football: Arizona State at Texas State</p>
+                        <p>4:00 p.m. | Bob Devaney Sports Center, San Marcos, TX</p>
                     </div>
                     <div class="info-btn">
                         <button onclick="toggleInfo(this)">Match info</button>
                     </div>
                 </div>
                 <div class="match-info">
-                    <p><strong>Kick-Off:</strong> 7:00 p.m.</p>
-                    <p><strong>Staff Reporting Time:</strong> 5:00 p.m.</p>
-                    <p><strong>Student Worker Reporting Time:</strong> 5:30 p.m.</p>
+                    <p><strong>Kick-Off:</strong> 4:00 p.m.</p>
+                    <p><strong>Staff Reporting Time:</strong> 2:00 p.m.</p>
+                    <p><strong>Student Worker Reporting Time:</strong> 2:30 p.m.</p>
                 </div>
             </div>
+
+            <!-- Add more entries for matches until November -->
+            <!-- Repeat the same format -->
 
         </div>
     </div>
@@ -295,23 +296,11 @@
     </div>
 
     <script>
-        // Show Modal
-        function showModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-
-        // Hide Modal
-        function hideModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // Function to toggle the visibility of match info
         function toggleInfo(button) {
             const matchInfo = button.closest('.schedule-item').querySelector('.match-info');
             matchInfo.style.display = matchInfo.style.display === 'none' || matchInfo.style.display === '' ? 'block' : 'none';
         }
 
-        // Event filter function (You can adjust based on data)
         function filterEvents() {
             const eventType = document.getElementById('eventType').value.toLowerCase();
             const eventDate = document.getElementById('eventDate').value;
