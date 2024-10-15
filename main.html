@@ -39,14 +39,6 @@
             cursor: pointer;
         }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            position: absolute;
-            left: 20px;
-            top: 30px;
-            cursor: pointer;
-        }
-
         /* Container for search */
         .container {
             max-width: 700px;
@@ -167,88 +159,6 @@
             border-radius: 4px;
         }
 
-        /* ALERT styling */
-        .alert {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: red;
-            color: white;
-            padding: 5px 10px;
-            font-weight: bold;
-            border-radius: 3px;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Dark background */
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            width: 500px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .modal-content h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .modal-content input,
-        .modal-content button {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .modal-content input:focus {
-            outline: none;
-            border-color: #8C1D40;
-        }
-
-        .modal-content button {
-            background-color: #8C1D40;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .modal-content button:hover {
-            background-color: #A23748;
-        }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #aaa;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-        }
-
         /* Footer */
         .footer {
             text-align: center;
@@ -258,34 +168,9 @@
             font-size: 14px;
             margin-top: 30px;
         }
-
-        /* Dark mode styling */
-        body.dark-mode {
-            background-color: #333;
-            color: #f4f4f4;
-        }
-
-        .dark-mode .container,
-        .dark-mode .schedule-item {
-            background-color: #444;
-            color: #f4f4f4;
-        }
-
-        .dark-mode button {
-            background-color: #FFC627;
-            color: #8C1D40;
-        }
-
-        .dark-mode .info-btn button {
-            background-color: #FFC627;
-            color: #8C1D40;
-        }
     </style>
 </head>
 <body>
-
-    <!-- Theme Toggle -->
-    <div class="theme-toggle" onclick="toggleTheme()">🌓</div>
 
     <!-- Header icons (Shifted to the right) -->
     <div class="header-icons">
@@ -333,52 +218,26 @@
     <!-- Game Schedule Container -->
     <div class="schedule-container" id="scheduleContainer">
         <!-- Example Event -->
-        <div class="schedule-item" data-event-type="Volleyball" data-event-date="2024-09-12" data-staff-name="Kevin Chan">
+        <div class="schedule-item" data-event-type="Football" data-event-date="2024-08-31" data-staff-name="">
             <div class="schedule-header">
                 <div class="date">
-                    <p>Sep.</p>
-                    <p>12</p>
+                    <p>Aug.</p>
+                    <p>31</p>
                 </div>
                 <div class="details">
-                    <p class="event-name">Sun Devil Volleyball: Arizona State at Wichita State</p>
-                    <p>4:00 p.m. | Bob Devaney Sports Center</p>
+                    <p class="event-name">Football: Arizona State vs Wyoming</p>
+                    <p>7:30 p.m. | Mountain America Stadium, Tempe, AZ</p>
                 </div>
                 <div class="info-btn">
                     <button onclick="toggleInfo(this)">Match info</button>
                 </div>
             </div>
-
-            <!-- Hidden match info -->
             <div class="match-info">
-                <p><strong>Staff Reporting Time:</strong> 2:00 p.m.</p>
-                <p><strong>Student Worker Reporting Time:</strong> 2:30 p.m.</p>
-                <p><strong>Kick-Off Time:</strong> 4:00 p.m.</p>
+                <p><strong>Result:</strong> W, 48-7</p>
             </div>
         </div>
-    </div>
-
-    <!-- Account Modal -->
-    <div id="accountModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="hideModal('accountModal')">&times;</span>
-            <h2>Your Profile</h2>
-            <p><strong>Name:</strong> <span id="userName">John Doe</span></p>
-            <p><strong>Email:</strong> john.doe@example.com</p>
-            <p><strong>Phone:</strong> (123) 456-7890</p>
-        </div>
-    </div>
-
-    <!-- Add Event Modal -->
-    <div id="addEventModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="hideModal('addEventModal')">&times;</span>
-            <h2>Add New Event</h2>
-            <input type="text" id="eventName" placeholder="Event Name" />
-            <input type="date" id="eventDateInput" placeholder="Event Date" />
-            <input type="text" id="assignedBy" placeholder="Assigned By" />
-            <input type="time" id="reportingTime" placeholder="Reporting Time" />
-            <button onclick="addEvent()">Add Event</button>
-        </div>
+        <!-- Add more schedule items as needed (example below) -->
+        <!-- Repeat similar blocks for all the remaining games -->
     </div>
 
     <!-- Footer -->
@@ -387,20 +246,6 @@
     </div>
 
     <script>
-        // Theme Toggle
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-        }
-
-        // Load stored theme
-        window.onload = function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        };
-
         // Show Modal
         function showModal(modalId) {
             document.getElementById(modalId).style.display = 'flex';
@@ -409,65 +254,6 @@
         // Hide Modal
         function hideModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
-        }
-
-        // Add new event to the schedule
-        function addEvent() {
-            const eventName = document.getElementById('eventName').value;
-            const eventDate = document.getElementById('eventDateInput').value;
-            const assignedBy = document.getElementById('assignedBy').value;
-            const reportingTime = document.getElementById('reportingTime').value;
-
-            // Create new game schedule item
-            const scheduleContainer = document.getElementById('scheduleContainer');
-            const newEventItem = document.createElement('div');
-            newEventItem.classList.add('schedule-item');
-            newEventItem.setAttribute('data-event-type', eventName.split(':')[0].trim());
-            newEventItem.setAttribute('data-event-date', eventDate);
-            newEventItem.setAttribute('data-staff-name', assignedBy);
-
-            newEventItem.innerHTML = `
-                <div class="schedule-header">
-                    <div class="date">
-                        <p>${new Date(eventDate).toLocaleDateString('en-US', { month: 'short' })}</p>
-                        <p>${new Date(eventDate).getDate()}</p>
-                    </div>
-                    <div class="details">
-                        <p class="event-name">${eventName}</p>
-                        <p>Reporting Time: ${reportingTime}</p>
-                        <p>Assigned By: ${assignedBy}</p>
-                    </div>
-                    <div class="info-btn">
-                        <button onclick="toggleInfo(this)">Match info</button>
-                    </div>
-                </div>
-                <div class="match-info">
-                    <p><strong>Staff Reporting Time:</strong> ${reportingTime}</p>
-                </div>
-            `;
-
-            scheduleContainer.appendChild(newEventItem);
-            hideModal('addEventModal');
-        }
-
-        // Filter events by search criteria
-        function filterEvents() {
-            const eventType = document.getElementById('eventType').value.toLowerCase();
-            const eventDate = document.getElementById('eventDate').value;
-            const staffName = document.getElementById('staffDropdown').value;
-
-            const events = document.querySelectorAll('.schedule-item');
-            events.forEach(event => {
-                const eventMatchesType = eventType === '' || event.getAttribute('data-event-type').toLowerCase().includes(eventType);
-                const eventMatchesDate = eventDate === '' || event.getAttribute('data-event-date') === eventDate;
-                const eventMatchesStaff = staffName === '' || event.getAttribute('data-staff-name') === staffName;
-
-                if (eventMatchesType && eventMatchesDate && eventMatchesStaff) {
-                    event.style.display = 'flex';
-                } else {
-                    event.style.display = 'none';
-                }
-            });
         }
 
         // Function to toggle the visibility of match info
